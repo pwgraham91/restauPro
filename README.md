@@ -2,4 +2,4 @@
 <p>=========</p>
 
 <h2>Restaurant Table Management System</h2>
-<iframe src="http://giphy.com/embed/CnALnW9smJ49a?html5=true" width="500" height="375" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+![A plastic man finally completes his descent into madness](http://usatlife.files.wordpress.com/2014/09/spaceship-lego.gif?w=640&h=266)
