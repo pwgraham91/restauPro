@@ -1,13 +1,13 @@
 __author__ = 'GoldenGate'
 from django.contrib.auth.forms import UserCreationForm
-from host_management.models import Restaurant, Table, Party
+from host_management.models import Restaurant
 from django import forms
 
 
 class RestaurantUserCreationForm(UserCreationForm):
     class Meta:
         model = Restaurant
-        fields = ("username", "restaurant_name" "password1", "password2", "email")
+        fields = ("username", "restaurant_name", "password1", "password2", "email")
 
     def clean_username(self):
         username = self.cleaned_data["username"]
