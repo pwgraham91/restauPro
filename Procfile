@@ -1,0 +1,1 @@
+web: gunicorn restaupro.wsgi --log-file -
