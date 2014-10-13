@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    Add a Table
+{% endblock title %}
+{% block script %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datetimepicker.css' %}">
+<script type="text/javascript" src= "{% static 'js/add_party.js' %}"></script>
+<script type="text/javascript" src= "{% static 'js/bootstrap-datetimepicker.js' %}"></script>
+{% endblock script %}
+{% block content %}
+    <div class="container">
+    <h1>Add a Party</h1>
+    <form method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ party_form.as_p }}
+        <button class= "btn btn-primary" type="submit" value="Add Party">Add Party</button>
+    </form>
+    </div>
+
+
+
+
+{% endblock content %}

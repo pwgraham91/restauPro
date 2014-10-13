@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block script %}
+{#<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">#}
+{% endblock script %}
+{{% block title %}
+Register
+{% endblock title %}
+{% block content %}
+<h1>Register for RestauPro</h1>
+    <div class="container">
+    <form method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+                <button class= "btn btn-primary" type="submit" value="Submit">Submit</button>
+    </form>
+    </div>
+
+{% endblock %}

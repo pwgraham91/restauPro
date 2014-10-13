@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block script %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock script %}
+{% block content %}
+    <div class="container">
+    <h1>Hello {{ user.restaurant_name }}</h1>
+    {% for table in tables %}
+        <p>Table {{ table.table_name }}: {{ table.seats }} seats</p>
+        {% for party in parties %}
+            {% if party.seated_table == table %}
+                <p class="party">{{ party.party_name.capitalize }}, {{ party.reservation_time }} - {{ party.predicted_end_time }}</p>
+            {% endif %}
+
+        {% endfor %}
+    {% endfor %}
+    </div>
+{% endblock content %}

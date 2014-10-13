@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    Add a Table
+{% endblock title %}
+{% block script %}
+{#<link rel="stylesheet" type="text/css" href="{% static 'css/car_form.css' %}">#}
+{% endblock script %}
+{% block content %}
+    <div class="container">
+    <h1>Add a Table</h1>
+    <form method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in table_form %}
+        <p>{{ field.label_tag }} {{ field }}</p>
+        {% endfor %}
+        <button class= "btn btn-primary" type="submit" value="Add Table">Add Table</button>
+    </form>
+    </div>
+{% endblock content %}
