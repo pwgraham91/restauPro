@@ -2,6 +2,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, render_to_response
+from django.views.decorators.csrf import csrf_exempt
 from host_management.forms import RestaurantUserCreationForm, TableForm, PartyForm, AjaxReservationForm
 from models import Table, Party
 import datetime
@@ -37,6 +38,7 @@ def home(request):
 
 
 @login_required()
+
 def profile(request):
     all_parties = Party.objects.all()
     for party in all_parties:

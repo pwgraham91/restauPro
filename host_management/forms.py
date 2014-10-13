@@ -40,7 +40,9 @@ class PartyForm(forms.ModelForm):
 
 class AjaxReservationForm(forms.Form):
     party_name = forms.CharField(label="Enter this if you know the name of the party so you can save their data")
-    seats = forms.IntegerField(label="number of maximum available seats at the table")
-    x_position = forms.IntegerField(label="x grid position of the table")
-    y_position = forms.IntegerField(label="y grid position of the table")
-    pass
+    number_of_males = forms.IntegerField()
+    number_of_females = forms.IntegerField()
+    number_of_children = forms.IntegerField()
+    lunch = forms.BooleanField(label="check true for lunch or false for dinner")
+    monday_to_thursday = forms.BooleanField(label="check true for Monday to Thursday or false for Friday to Sunday")
+    reservation_time = forms.DateTimeField()

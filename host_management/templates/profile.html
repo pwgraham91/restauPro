@@ -2,16 +2,20 @@
 {% load staticfiles %}
 {% block script %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
-<script type="text/javascript" src= "{% static 'js/add_party.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datetimepicker.css' %}">
+<script type="text/javascript" src= "{% static 'js/bootstrap-datetimepicker.js' %}"></script>
+<script type="text/javascript" src= "{% static 'js/profile.js' %}"></script>
 
 {% endblock script %}
 {% block content %}
     <div class="container">
     <h1>{{ user.restaurant_name }}</h1>
     {% for table in tables %}
+        <div id="{{ table.pk }}">
         <p class="table" id="Table{{ table.pk }}">Table {{ table.table_name }}: {{ table.seats }} seats</p>
-        <div class="ajaxReservationForm" id="form{{ table.pk }}"></div>
-        <div class="newPartyButton" id="table{{ table.pk }}" <a href="{% url 'make_reservation_at_table' table.pk %}"><button class="btn-primary">Make Reservation at Table {{ table.table_name }}</button></a>
+        <div class="ajaxReservationForm" id="myform{{ table.pk }}"></div>
+        <button class="btn-primary newPartyButton" data-table="{{ table.pk }}">Make Reservation at Table {{ table.table_name }}</button>
+        </div>
         {% for party in parties %}
             {% if party.seated_table == table and party.end_time == None %}
                 <p class="party">{{ party.party_name.capitalize }}, Reservation Time: {{ party.reservation_time }} - Predicted End Time: {{ party.predicted_end_time }} End Time: {{ party.end_time }}</p>
