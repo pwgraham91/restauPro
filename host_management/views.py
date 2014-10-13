@@ -1,21 +1,35 @@
 # Create your views here.
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from host_management.forms import RestaurantUserCreationForm, TableForm, PartyForm
+from django.shortcuts import render, redirect, render_to_response
+from host_management.forms import RestaurantUserCreationForm, TableForm, PartyForm, AjaxReservationForm
 from models import Table, Party
-from datetime import timedelta
+import datetime
 
 
 def match(party):
     estimation_list = []
+    estimated_time_list = []
     for this_party in Party.objects.all():
         if party.number_of_males == this_party.number_of_males:
             if party.number_of_females == this_party.number_of_females:
                 if party.number_of_children == this_party.number_of_children:
-                    if (party.lunch and this_party.lunch) or (party.lunch == False and this_party.lunch == False):
-                        pass
-                    # elif party.dinner and this_party.dinner:
+                    if (party.lunch and this_party.lunch) or (not party.lunch and not this_party.lunch):
+                        if (party.monday_to_thursday and this_party.monday_to_thursday) or\
+                                (not party.monday_to_thursday and not this_party.monday_to_thursday):
+                            estimation_list.append(this_party)
+    for time in estimation_list:
+        if time.end_time is not None:
+            this_time = time.end_time - time.reservation_time
+            estimated_time_list.append(this_time.seconds)
+    if len(estimated_time_list) > 0:
+        projected_total_time = sum(estimated_time_list) / len(estimated_time_list)
+        pro_end_time = party.reservation_time + datetime.timedelta(0, projected_total_time)
+        party.predicted_end_time = pro_end_time
+        party.save()
+    else:
+        party.predicted_end_time = party.reservation_time + datetime.timedelta(0, 3600)
+        party.save()
 
 
 def home(request):
@@ -26,7 +40,7 @@ def home(request):
 def profile(request):
     all_parties = Party.objects.all()
     for party in all_parties:
-        party.predicted_end_time = party.reservation_time + timedelta(minutes=60)
+        party.predicted_end_time = party.reservation_time + datetime.timedelta(minutes=60)
         party.save()
         match(party)
     my_tables = Table.objects.filter(premise__username=request.user)
@@ -97,3 +111,34 @@ def party_form(request):
             return HttpResponse("There was a problem with your entry, please try again")
     else:
         return render(request, "add_party.html", data)
+
+
+def end_party(request, party_id):
+    my_party = Party.objects.get(pk=party_id)
+    my_party.end_time = datetime.datetime.now() - datetime.timedelta(0, 25200)
+    my_party.save()
+    return redirect("profile")
+
+
+def make_reservation_at_table(request, table_id):
+    my_table = Table.objects.get(pk=table_id)
+    data = {
+        "table": my_table,
+        "ajax_party_form": AjaxReservationForm()
+    }
+    if request.method == 'POST':
+        form = AjaxReservationForm(request.POST)
+        if form.is_valid():
+            Party.objects.create(party_name=form.cleaned_data['party_name'],
+                                 number_of_males=form.cleaned_data['number_of_males'],
+                                 number_of_females=form.cleaned_data['number_of_females'],
+                                 number_of_children=form.cleaned_data['number_of_children'],
+                                 lunch=form.cleaned_data['lunch'],
+                                 monday_to_thursday=form.cleaned_data['monday_to_thursday'],
+                                 reservation_time=form.cleaned_data['reservation_time'],
+                                 seated_table=my_table)
+            return redirect("profile")
+        else:
+            return HttpResponse("There was a problem with your entry, please try again")
+    else:
+        return render_to_response("ajax_reservation.html", data)

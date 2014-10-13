@@ -22,7 +22,7 @@ class Table(models.Model):
 
 
 class Party(models.Model):
-    party_name = models.CharField(max_length=50, help_text="enter this if you know the name of the party so you can save their data", blank=True)
+    party_name = models.CharField(max_length=50, help_text="Enter this if you know the name of the party so you can save their data", blank=True)
     number_of_males = models.CharField(max_length=2)
     number_of_females = models.CharField(max_length=2)
     number_of_children = models.CharField(max_length=2)

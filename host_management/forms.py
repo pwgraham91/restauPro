@@ -31,9 +31,16 @@ class PartyForm(forms.ModelForm):
         restaurant = kwargs.pop('restaurant', None)
         super(PartyForm, self).__init__(*args, **kwargs)
         self.fields['seated_table'] = forms.ModelChoiceField(Table.objects.filter(premise=restaurant))
-        self.fields['party_name'].label = "the party"
+        self.fields['party_name'].label = "Party Name"
     class Meta:
         model = Party
         fields = ("party_name", "number_of_males", "number_of_females",
                   "number_of_children", "lunch", "monday_to_thursday",
                   "reservation_time", "seated_table")
+
+class AjaxReservationForm(forms.Form):
+    party_name = forms.CharField(label="Enter this if you know the name of the party so you can save their data")
+    seats = forms.IntegerField(label="number of maximum available seats at the table")
+    x_position = forms.IntegerField(label="x grid position of the table")
+    y_position = forms.IntegerField(label="y grid position of the table")
+    pass
