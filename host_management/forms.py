@@ -1,6 +1,6 @@
 __author__ = 'GoldenGate'
 from django.contrib.auth.forms import UserCreationForm
-from host_management.models import Restaurant
+from host_management.models import Restaurant, Table, Party
 from django import forms
 
 
@@ -21,14 +21,19 @@ class RestaurantUserCreationForm(UserCreationForm):
         )
 
 class TableForm(forms.Form):
-    table_name = forms.CharField(label="example: 103 (do not put 'table 103' just '103'")
+    table_name = forms.CharField(label="Table Name: example: 103 (do not put 'table 103' just '103')")
     seats = forms.IntegerField(label="number of maximum available seats at the table")
+    x_position = forms.IntegerField(label="x grid position of the table")
+    y_position = forms.IntegerField(label="y grid position of the table")
 
-class PartyForm(forms.Form):
-    party_name = forms.CharField(label="Enter this if you know the name of the party so you can save their data")
-    number_of_males = forms.IntegerField(label="Number of adult males in party")
-    number_of_females = forms.IntegerField(label="Number of adult females in party")
-    number_of_children = forms.IntegerField(label="Number of children in party")
-    lunch = forms.BooleanField(label="Check true for lunch or false for dinner")
-    weekday = forms.BooleanField(label="Check true for Monday through Thursday or false for Friday through Sunday")
-    reservation_time = forms.DateTimeField(label="Reservation time")
+class PartyForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        restaurant = kwargs.pop('restaurant', None)
+        super(PartyForm, self).__init__(*args, **kwargs)
+        self.fields['seated_table'] = forms.ModelChoiceField(Table.objects.filter(premise=restaurant))
+        self.fields['party_name'].label = "the party"
+    class Meta:
+        model = Party
+        fields = ("party_name", "number_of_males", "number_of_females",
+                  "number_of_children", "lunch", "monday_to_thursday",
+                  "reservation_time", "seated_table")

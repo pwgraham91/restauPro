@@ -11,6 +11,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'host_management.views.home', name='home'),
     url(r'^profile/$', 'host_management.views.profile', name='profile'),
+    url(r'^table_form/$', 'host_management.views.table_form', name='table_form'),
+    url(r'^party_form/$', 'host_management.views.party_form', name='party_form'),
 
     url(r'^register/$', 'host_management.views.register', name='register'),
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
