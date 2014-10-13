@@ -34,7 +34,21 @@ var csrftoken = getCookie('csrftoken');
             }
 
     });
+
     }
+        $('#submitButton').on('click', function () {
+        $.ajax({
+            url: 'make_reservation_at_table/' + tableid + '/',
+            type: 'POST',
+            success: function (data) {
+                console.log('ok')
+            },
+            headers: {
+                "X-CSRFToken": csrftoken
+            }
+        })
+
+        });
     $('.newPartyButton').on('click', function() {
         var table_id = $('.newPartyButton').parent().attr("id");
         console.log(table_id);

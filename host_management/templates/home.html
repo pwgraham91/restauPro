@@ -1,6 +1,10 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% block script %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock script %}
 {% block content %}
     <div class="container">
-    <h1>Hello, please render</h1>
+    <img id="homeLogo" src="http://i61.tinypic.com/n2216c.jpg" border="0">
     </div>
 {% endblock content %}
