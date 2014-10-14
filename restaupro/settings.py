@@ -73,11 +73,6 @@ DATABASES = {
     }
 }
 
-try:
-    from local_settings import *
-except ImportError:
-    pass
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -117,3 +112,9 @@ ALLOWED_HOSTS = ['*']
 
 # Static asset configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
