@@ -28,12 +28,6 @@ AUTH_USER_MODEL = 'host_management.Restaurant'
 LOGIN_REDIRECT_URL = 'profile'
 LOGIN_URL = 'login'
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'pwgraham91@gmail.com'
-EMAIL_HOST_PASSWORD = 'Zephyr00'
-EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'pwgraham91@gmail.com'
 
 
 # Application definition
