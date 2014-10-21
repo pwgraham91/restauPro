@@ -32,31 +32,11 @@ def match(party):
         party.predicted_end_time = party.reservation_time + datetime.timedelta(0, 3600)
         party.save()
 
-    # for this_party in Party.objects.all():
-    #     if party.number_of_males == this_party.number_of_males:
-    #         if party.number_of_females == this_party.number_of_females:
-    #             if party.number_of_children == this_party.number_of_children:
-    #                 if (party.lunch and this_party.lunch) or (not party.lunch and not this_party.lunch):
-    #                     if (party.monday_to_thursday and this_party.monday_to_thursday) or\
-    #                             (not party.monday_to_thursday and not this_party.monday_to_thursday):
-    #                         estimation_list.append(this_party)
-
-    # for time in estimation_list:
-    #     this_time = time.end_time - time.reservation_time
-    #     estimated_time_list.append(this_time.seconds)
-    #
-    # if len(estimated_time_list) > 0:
-    #     projected_total_time = sum(estimated_time_list) / len(estimated_time_list)
-    #     pro_end_time = party.reservation_time + datetime.timedelta(0, projected_total_time)
-
-
-
 def home(request):
     return render(request, 'home.html')
 
 
 @login_required()
-
 def profile(request):
     all_parties = Party.objects.all()
     for party in all_parties:
