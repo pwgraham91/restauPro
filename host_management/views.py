@@ -102,7 +102,7 @@ def table_form(request):
     else:
         return render(request, "table_form.html", data)
 
-
+@csrf_exempt
 def party_form(request):
     data = {"party_form": PartyForm(restaurant=request.user)}
     if request.method == 'POST':
