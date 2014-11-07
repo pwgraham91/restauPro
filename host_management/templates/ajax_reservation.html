@@ -3,6 +3,6 @@
 <form style="width: 450px" method="post" action="." enctype="multipart/form-data">
     {% csrf_token %}
     {{ ajax_party_form.as_p }}
-    <button id="submitButton{{ table.pk }}" class= "btn btn-primary" type="submit" value="Add Party">Add Party</button>
+    <button id="submitButton" class= "btn btn-primary" type="submit" value="Add Party">Add Party at Table: {{ table.table_name }}</button>
 </form>
 </div>

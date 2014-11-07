@@ -13,7 +13,6 @@ urlpatterns = patterns('',
     url(r'^profile/$', 'host_management.views.profile', name='profile'),
     url(r'^table_form/$', 'host_management.views.table_form', name='table_form'),
     url(r'^party_form/$', 'host_management.views.party_form', name='party_form'),
-    url(r'^modal/$', 'host_management.views.modal', name='modal'),
     url(r'^end_party/(?P<party_id>\w+)/$', 'host_management.views.end_party', name='end_party'),
     url(r'^profile/make_reservation_at_table/(?P<table_id>\w+)/$', 'host_management.views.make_reservation_at_table', name='make_reservation_at_table'),
 
