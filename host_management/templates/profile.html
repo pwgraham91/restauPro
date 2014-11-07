@@ -13,7 +13,7 @@
     {% for y in y_range %}
         <div class="row" id="row{{ y }}">
             {% for x in x_range %}
-                <div class="col-md-{{ x_col }}">
+                <div class="col-md-{{ x_col }}" id="x:{{ x }}y:{{ y }}">
                         {% for table in tables %}
                             {% if table.x_position == x and table.y_position == y %}
                             <div id="{{ table.pk }}">
