@@ -129,7 +129,7 @@ def end_party(request, party_id):
     my_party.save()
     return redirect("profile")
 
-
+@csrf_exempt
 def make_reservation_at_table(request, table_id):
     my_table = Table.objects.get(pk=table_id)
     data = {
