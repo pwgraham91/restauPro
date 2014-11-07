@@ -36,22 +36,7 @@
             {% endfor %}
         </div>
     {% endfor %}
-{#    {% for table in tables %}#}
-{#        <div id="{{ table.pk }}">#}
-{#        <p class="table" id="Table{{ table.pk }}">Table {{ table.table_name }}: {{ table.seats }} seats</p>#}
-{#        <div class="ajaxReservationForm" id="myform{{ table.pk }}"></div>#}
-{#        <button class="btn-primary newPartyButton" data-table="{{ table.pk }}">Make Reservation at Table {{ table.table_name }}</button>#}
-{#        </div>#}
-{#        {% for party in parties %}#}
-{#            {% if party.seated_table == table and party.end_time == None %}#}
-{#                <p class="party">{{ party.party_name.capitalize }}, Reservation Time: {{ party.reservation_time }} - Predicted End Time: {{ party.predicted_end_time }} End Time: {{ party.end_time }}</p>#}
-{#                <p class="party">males: {{ party.number_of_males }} females: {{ party.number_of_females }} children {{ party.number_of_children }} lunch: {{ party.lunch }} weekday: {{ party.monday_to_thursday }} {{ party.pk }}</p>#}
-{#                <a href="{% url 'end_party' party.pk %}"><button class="btn-danger">End Party</button></a>#}
-{#            {% endif %}#}
-{#        {% endfor %}#}
-{#    <br>#}
-{#    <br>#}
-{#    {% endfor %}#}
+
 
     </div>
 {% endblock content %}

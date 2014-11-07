@@ -107,8 +107,6 @@ def party_form(request):
     data = {"party_form": PartyForm(restaurant=request.user)}
     if request.method == 'POST':
         form = PartyForm(request.POST, restaurant=request.user)
-        print form
-
         if form.is_valid():
             Party.objects.create(party_name=form.cleaned_data['party_name'],
                                  number_of_males=form.cleaned_data['number_of_males'],
@@ -154,3 +152,7 @@ def make_reservation_at_table(request, table_id):
             return HttpResponse("There was a problem with your entry, please try again")
     else:
         return render_to_response("ajax_reservation.html", data)
+
+
+def modal(request):
+    return render("modal.html")
