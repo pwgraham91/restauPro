@@ -53,8 +53,8 @@ def profile(request):
         if table.y_position > y_max:
             y_max = table.y_position
         sorted_tables.append(table)
-    x_range = range(x_max)
-    y_range = range(y_max)
+    x_range = range(x_max+1)
+    y_range = range(y_max+1)
     x_col = 12/(x_max+1)
     sorted_tables.sort(key=lambda x: x.table_name, reverse=False)
     data = {
