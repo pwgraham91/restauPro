@@ -1,9 +1,8 @@
 <div class="container">
 <h1>Add a Party at table {{ table.table_name }}</h1>
-<form method="post" action="." enctype="multipart/form-data">
+<form style="width: 200px" method="post" action="." enctype="multipart/form-data">
     {% csrf_token %}
     {{ ajax_party_form.as_p }}
     <button id="submitButton{{ table.pk }}" class= "btn btn-primary" type="submit" value="Add Party">Add Party</button>
 </form>
 </div>
-<br><br>
