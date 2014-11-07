@@ -53,13 +53,17 @@ def profile(request):
         if table.y_position > y_max:
             y_max = table.y_position
         sorted_tables.append(table)
+    x_range = range(x_max)
+    y_range = range(y_max)
+    x_col = 12/(x_max+1)
     sorted_tables.sort(key=lambda x: x.table_name, reverse=False)
     data = {
         'user': request.user,
         'tables': sorted_tables,
         'parties': Party.objects.all(),
-        'x_max': x_max,
-        'y_max': y_max
+        'x_range': x_range,
+        'y_range': y_range,
+        'x_col':x_col
     }
     return render(request, 'profile.html', data)
 

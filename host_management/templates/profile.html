@@ -10,8 +10,13 @@
 {% block content %}
     <div class="container">
     <h1>{{ user.restaurant_name }}</h1>
-    <h1>x max{{ x_max }}</h1>
-    <h1>y max {{ y_max }}</h1>
+    {% for y in y_range %}
+        <div class="row" id="row{{ y }}">
+            {% for x in x_range %}
+                <div class="col-md-{{ x_col }}"></div>
+            {% endfor %}
+        </div>
+    {% endfor %}
     {% for table in tables %}
         <div id="{{ table.pk }}">
         <p class="table" id="Table{{ table.pk }}">Table {{ table.table_name }}: {{ table.seats }} seats</p>
