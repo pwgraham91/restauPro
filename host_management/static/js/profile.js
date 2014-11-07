@@ -26,8 +26,9 @@ var csrftoken = getCookie('csrftoken');
             url: 'make_reservation_at_table/' + tableid + '/',
             type: 'GET',
             success: function(data) {
-                $('#resModalForm').html(data);
                 time()
+                $('#resModalForm').html(data);
+
             },
             headers: {
                 "X-CSRFToken": csrftoken
