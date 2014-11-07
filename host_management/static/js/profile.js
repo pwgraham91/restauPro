@@ -36,17 +36,17 @@ var csrftoken = getCookie('csrftoken');
     });
 
     }
-        $('#submitButton').on('click', function () {
-        $.ajax({
-            url: 'make_reservation_at_table/' + tableid + '/',
-            type: 'POST',
-            success: function (data) {
-                console.log('ok')
-            },
-            headers: {
-                "X-CSRFToken": csrftoken
-            }
-        })
+//        $('#submitButton').on('click', function () {
+//        $.ajax({
+//            url: 'make_reservation_at_table/' + tableid + '/',
+//            type: 'POST',
+//            success: function (data) {
+//                console.log('ok')
+//            },
+//            headers: {
+//                "X-CSRFToken": csrftoken
+//            }
+//        })
 
         });
 //    TODO OLD SUBMIT BUTTON ABOVE. REWRITING WITH PROPER AJAX POSTING
