@@ -117,7 +117,7 @@ def party_form(request):
                                  monday_to_thursday=form.cleaned_data['monday_to_thursday'],
                                  reservation_time=form.cleaned_data['reservation_time'],
                                  seated_table=form.cleaned_data['seated_table'])
-            return redirect("profile")
+            return redirect("home")
         else:
             return HttpResponse("There was a problem with your entry, please try again")
     else:
@@ -148,7 +148,7 @@ def make_reservation_at_table(request, table_id):
                                  monday_to_thursday=form.cleaned_data['monday_to_thursday'],
                                  reservation_time=form.cleaned_data['reservation_time'],
                                  seated_table=my_table)
-            return redirect("profile")
+            return redirect("home")
         else:
             return HttpResponse("There was a problem with your entry, please try again")
     else:
