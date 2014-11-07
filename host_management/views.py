@@ -45,13 +45,21 @@ def profile(request):
         match(party)
     my_tables = Table.objects.filter(premise__username=request.user)
     sorted_tables = []
+    x_max = 0
+    y_max = 0
     for table in my_tables:
+        if table.x_position > x_max:
+            x_max = table.x_position
+        if table.y_position > y_max:
+            y_max = table.y_position
         sorted_tables.append(table)
     sorted_tables.sort(key=lambda x: x.table_name, reverse=False)
     data = {
         'user': request.user,
         'tables': sorted_tables,
-        'parties': Party.objects.all()
+        'parties': Party.objects.all(),
+        'x_max': x_max,
+        'y_max': y_max
     }
     return render(request, 'profile.html', data)
 
