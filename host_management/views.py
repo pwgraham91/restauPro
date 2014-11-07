@@ -116,7 +116,7 @@ def party_form(request):
                                  monday_to_thursday=form.cleaned_data['monday_to_thursday'],
                                  reservation_time=form.cleaned_data['reservation_time'],
                                  seated_table=form.cleaned_data['seated_table'])
-            return render(request, "home.html")
+            return render_to_response(request, "home.html")
         else:
             return HttpResponse("There was a problem with your entry, please try again")
     else:
