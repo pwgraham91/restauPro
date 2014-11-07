@@ -37,6 +37,7 @@ def home(request):
 
 
 @login_required()
+@csrf_exempt
 def profile(request):
     all_parties = Party.objects.all()
     for party in all_parties:
@@ -63,7 +64,7 @@ def profile(request):
         'parties': Party.objects.all(),
         'x_range': x_range,
         'y_range': y_range,
-        'x_col':x_col
+        'x_col': x_col
     }
     return render(request, 'profile.html', data)
 
@@ -116,7 +117,7 @@ def party_form(request):
                                  monday_to_thursday=form.cleaned_data['monday_to_thursday'],
                                  reservation_time=form.cleaned_data['reservation_time'],
                                  seated_table=form.cleaned_data['seated_table'])
-            return render(request, "home.html")
+            return redirect("profile")
         else:
             return HttpResponse("There was a problem with your entry, please try again")
     else:
