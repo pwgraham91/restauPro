@@ -3,28 +3,30 @@
  */
 
 $(document).ready(function() {
- function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
         }
+        return cookieValue;
     }
-    return cookieValue;
-}
-var csrftoken = getCookie('csrftoken');
-    function reserve (tableid){
-        var input = '#myform'+tableid;
+
+    var csrftoken = getCookie('csrftoken');
+
+    function reserve(tableid) {
+        var input = '#myform' + tableid;
         console.log(input);
         $.ajax({
             url: 'make_reservation_at_table/' + tableid + '/',
             type: 'GET',
-            success: function(data) {
+            success: function (data) {
                 $('#resModalForm').html(data);
                 time()
             },
@@ -32,9 +34,10 @@ var csrftoken = getCookie('csrftoken');
                 "X-CSRFToken": csrftoken
             }
 
-    });
+        });
 
     }
+
 //        $('#submitButton').on('click', function () {
 //            $.ajax({
 //                url: 'make_reservation_at_table/' + tableid + '/',
@@ -58,10 +61,18 @@ var csrftoken = getCookie('csrftoken');
         var monday_to_thursday = $('#id_monday_to_thursday').attr('checked');
         var reservation_time = $('#id_reservation_time').val();
         var seated_table = $(this).val().split(': ')[1];
+        console.log(party_name);
+        console.log(number_of_males);
+        console.log(number_of_females);
+        console.log(number_of_children);
+        console.log(lunch);
+        console.log(monday_to_thursday);
+        console.log(reservation_time);
+        console.log(seated_table);
 
         datas = {
-             party_name: party_name,
-             number_of_males: number_of_males,
+            party_name: party_name,
+            number_of_males: number_of_males
 //             number_of_females=form.cleaned_data['number_of_females'],
 //             number_of_children=form.cleaned_data['number_of_children'],
 //             lunch=form.cleaned_data['lunch'],
@@ -70,31 +81,32 @@ var csrftoken = getCookie('csrftoken');
 //             seated_table=form.cleaned_data['seated_table'])
 
         };
-        $.ajax({
-            url: 'make_reservation_at_table/' + tableid + '/',
-            type: 'POST',
-            dataType: 'json',
-            data: datas
-        })
-
+//        $.ajax({
+//            url: 'make_reservation_at_table/' + tableid + '/',
+//            type: 'POST',
+//            dataType: 'json',
+//            data: datas
+//        })
+//
+//        });
+        $('.newPartyButton').on('click', function () {
+            var table_id = $(this).parent().attr("id");
+            console.log(table_id);
+            return reserve(table_id);
         });
-    $('.newPartyButton').on('click', function() {
-        var table_id = $(this).parent().attr("id");
-        console.log(table_id);
-        return reserve(table_id);
+        function time() {
+            $('#id_reservation_time').replaceWith('<div class="form-group"><div class="input-group date form_datetime col-md-12" data-date="1979-09-16T05:25:07Z" data-date-format="mm/dd/yyyy hh:ii" data-link-field="dtp_input1"><input id="id_reservation_time" name="reservation_time" type="text" class="form-control" size="16" type="text" value="" readonly><span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span><span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span></div><input type="hidden" id="dtp_input1" value="" /><br/></div>');
+            $('.form_datetime').datetimepicker({
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0,
+                showMeridian: 0
+            });
+        }
     });
-    function time (){
-    $('#id_reservation_time').replaceWith('<div class="form-group"><div class="input-group date form_datetime col-md-12" data-date="1979-09-16T05:25:07Z" data-date-format="mm/dd/yyyy hh:ii" data-link-field="dtp_input1"><input id="id_reservation_time" name="reservation_time" type="text" class="form-control" size="16" type="text" value="" readonly><span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span><span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span></div><input type="hidden" id="dtp_input1" value="" /><br/></div>');
-    $('.form_datetime').datetimepicker({
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		forceParse: 0,
-        showMeridian: 0
-    });
-    }
 });
 
 ////
