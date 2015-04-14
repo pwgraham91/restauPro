@@ -4,10 +4,6 @@ from django.contrib import admin
 from restaupro import settings
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'restaupro.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'host_management.views.home', name='home'),
     url(r'^profile/$', 'host_management.views.profile', name='profile'),

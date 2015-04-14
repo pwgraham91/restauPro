@@ -32,7 +32,7 @@ $(document).ready(function() {
                 time()
             },
             headers: {
-                "X-CSRFToken": csrftoken
+                //"X-CSRFToken": csrftoken
             }
 
         });
@@ -60,7 +60,7 @@ $(document).ready(function() {
         var lunch = $('#id_lunch').attr('checked');
         var monday_to_thursday = $('#id_monday_to_thursday').attr('checked');
         var reservation_time = $('#id_reservation_time').val();
-        var seated_table = $(this).val().split(': ')[1];
+        var table = $(this).val().split(': ')[1];
         console.log(party_name);
         console.log(number_of_males);
         console.log(number_of_females);
@@ -68,26 +68,12 @@ $(document).ready(function() {
         console.log(lunch);
         console.log(monday_to_thursday);
         console.log(reservation_time);
-        console.log(seated_table);
+        console.log(table);
 
         datas = {
             party_name: party_name,
             number_of_males: number_of_males
-//             number_of_females=form.cleaned_data['number_of_females'],
-//             number_of_children=form.cleaned_data['number_of_children'],
-//             lunch=form.cleaned_data['lunch'],
-//             monday_to_thursday=form.cleaned_data['monday_to_thursday'],
-//             reservation_time=form.cleaned_data['reservation_time'],
-//             seated_table=form.cleaned_data['seated_table'])
-
         };
-//        $.ajax({
-//            url: 'make_reservation_at_table/' + tableid + '/',
-//            type: 'POST',
-//            dataType: 'json',
-//            data: datas
-//        })
-//
     });
 
     $('.newPartyButton').on('click', function () {

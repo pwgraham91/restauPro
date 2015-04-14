@@ -17,7 +17,7 @@ def match(party):
         number_of_children=party.number_of_children,
         lunch=party.lunch,
         monday_to_thursday=party.monday_to_thursday,
-        seated_table__premise=party.seated_table.premise,
+        table__restaurant=party.table.restaurant,
         end_time__isnull=False
     ).extra(
         select={
@@ -32,6 +32,7 @@ def match(party):
         party.predicted_end_time = party.reservation_time + datetime.timedelta(0, 3600)
         party.save()
 
+
 def home(request):
     return render(request, 'home.html')
 
@@ -44,27 +45,11 @@ def profile(request):
         party.predicted_end_time = party.reservation_time + datetime.timedelta(minutes=60)
         party.save()
         match(party)
-    my_tables = Table.objects.filter(premise__username=request.user)
-    sorted_tables = []
-    x_max = 0
-    y_max = 0
-    for table in my_tables:
-        if table.x_position > x_max:
-            x_max = table.x_position
-        if table.y_position > y_max:
-            y_max = table.y_position
-        sorted_tables.append(table)
-    x_range = range(x_max+1)
-    y_range = range(y_max+1)
-    x_col = 12/(x_max+1)
-    sorted_tables.sort(key=lambda x: x.table_name, reverse=False)
+
     data = {
         'user': request.user,
-        'tables': sorted_tables,
+        'tables': Table.objects.filter(restaurant__username=request.user),
         'parties': Party.objects.all(),
-        'x_range': x_range,
-        'y_range': y_range,
-        'x_col': x_col
     }
     return render(request, 'profile.html', data)
 
@@ -89,12 +74,10 @@ def table_form(request):
         if form.is_valid():
             Table.objects.create(table_name=form.cleaned_data['table_name'],
                                  seats=form.cleaned_data['seats'],
-                                 x_position=form.cleaned_data['x_position'],
-                                 y_position=form.cleaned_data['y_position'],
-                                 premise=request.user)
+                                 restaurant=request.user)
             data = {
                 'user': request.user,
-                'tables': Table.objects.filter(premise__username=request.user)
+                'tables': Table.objects.filter(restaurant__username=request.user)
             }
             return render(request, "profile.html", data)
         else:
@@ -102,6 +85,7 @@ def table_form(request):
 
     else:
         return render(request, "table_form.html", data)
+
 
 @csrf_exempt
 def party_form(request):
@@ -116,7 +100,7 @@ def party_form(request):
                                  lunch=form.cleaned_data['lunch'],
                                  monday_to_thursday=form.cleaned_data['monday_to_thursday'],
                                  reservation_time=form.cleaned_data['reservation_time'],
-                                 seated_table=form.cleaned_data['seated_table'])
+                                 table=form.cleaned_data['table'])
             return redirect("home")
         else:
             return HttpResponse("There was a problem with your entry, please try again")
@@ -147,7 +131,7 @@ def make_reservation_at_table(request, table_id):
                                  lunch=form.cleaned_data['lunch'],
                                  monday_to_thursday=form.cleaned_data['monday_to_thursday'],
                                  reservation_time=form.cleaned_data['reservation_time'],
-                                 seated_table=my_table)
+                                 table=my_table)
             return redirect("home")
         else:
             return HttpResponse("There was a problem with your entry, please try again")
