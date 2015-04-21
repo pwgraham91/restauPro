@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from host_management.forms import RestaurantUserCreationForm, TableForm, PartyForm, AjaxReservationForm
 from models import Table, Party
 import datetime
+from json import loads
 
 
 def match(party):
@@ -86,6 +87,11 @@ def table_form(request):
     else:
         return render(request, "table_form.html", data)
 
+
+def table_post(request):
+    if request.is_ajax() and request.method == 'POST':
+        body_post = loads(request.body)
+        i = True
 
 @csrf_exempt
 def party_form(request):
